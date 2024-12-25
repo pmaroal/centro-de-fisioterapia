@@ -1,39 +1,19 @@
 'use client'
 
 import { useState } from 'react'
+import { useCreateNote } from '@/hooks/useCreateNote'
 
 export default function Home() {
+  const { createNote, isLoading, error } = useCreateNote()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = async (error: React.FormEvent) => {
-    error.preventDefault()
-    setIsLoading(true)
-    setError(null)
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notes`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title, content }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to create note')
-      }
-
-      // Limpia los campos del formulario tras éxito
-      setTitle('')
-      setContent('')
-      alert('Nota creada exitosamente')
-    } catch (err) {
-      setError((err as Error).message)
-    } finally {
-      setIsLoading(false)
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await createNote({ title, content })
+    setTitle('')
+    setContent('')
+    alert('Nota creada exitosamente')
   }
 
   return (
