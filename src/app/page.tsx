@@ -2,6 +2,11 @@
 
 import { useState } from 'react'
 import { useCreateNote } from '@/hooks/useCreateNote'
+import AddIcon from './components/svg/add'
+import UpdateIcon from './components/svg/update'
+import DeleteIcon from './components/svg/delete'
+import { Icon } from './components/molecules/icon'
+import Button from './components/molecules/button'
 
 export default function Home() {
   const { createNote, isLoading, error } = useCreateNote()
@@ -37,15 +42,10 @@ export default function Home() {
             className="m-2 border-2 border-gray-300 p-2 text-black"
           ></textarea>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="m-2 rounded bg-blue-500 p-2 text-white"
-          >
-            {isLoading ? 'Adding...' : 'Add'}
-          </button>
+          <Button type="add" onClick={() => console.log('Add clicked')} />
         </form>
       </div>
+
       {error && <p className="text-red-500">{error}</p>}
     </main>
   )
