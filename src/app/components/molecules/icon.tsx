@@ -1,6 +1,6 @@
-import AddIcon from '../svg/add'
-import DeleteIcon from '../svg/delete'
-import UpdateIcon from '../svg/update'
+import AddIcon from '../atoms/svg/add'
+import DeleteIcon from '../atoms/svg/delete'
+import UpdateIcon from '../atoms/svg/update'
 
 interface IconProps {
   type: string

@@ -1,3 +1,4 @@
+'use client'
 import { useCreateNote } from '@/hooks/useCreateNote'
 import { useState } from 'react'
 import Button from '../molecules/button'
@@ -34,6 +35,7 @@ export default function AddSection() {
 
         <Button type="add" onClick={() => console.log('Add clicked')} />
       </form>
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   )
 }

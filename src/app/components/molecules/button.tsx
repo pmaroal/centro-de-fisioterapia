@@ -1,6 +1,6 @@
-import AddIcon from '../svg/add'
-import DeleteIcon from '../svg/delete'
-import UpdateIcon from '../svg/update'
+import AddIcon from '../atoms/svg/add'
+import DeleteIcon from '../atoms/svg/delete'
+import UpdateIcon from '../atoms/svg/update'
 
 export interface ButtonProps {
   type: 'add' | 'delete' | 'update' // Solo permite estos valores
@@ -36,7 +36,7 @@ export default function Button({
 
   return (
     <button
-      type="button"
+      type="submit"
       disabled={isLoading}
       onClick={onClick}
       className={`m-2 flex flex-row-reverse items-center justify-center gap-2 rounded bg-blue-500 p-2 text-white ${className}`}
