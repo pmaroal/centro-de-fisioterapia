@@ -1,34 +1,30 @@
-import { useEffect, useState } from 'react'
+'use client'
+import { useState, useEffect } from 'react'
 
 interface Note {
-  id: string
+  id: number
   title: string
   content: string
 }
 
 export const useFetchNotes = () => {
   const [notes, setNotes] = useState<Note[]>([])
-  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchNotes = async () => {
-      setIsLoading(true)
-      setError(null)
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notes`)
-        if (!response.ok) {
-          throw new Error('Failed to fetch notes')
-        }
-        const data = await response.json()
+        if (!response.ok) throw new Error('Error al obtener las notas')
+        const data: Note[] = await response.json()
         setNotes(data)
-      } catch (err: unknown) {
-        setError((err as Error).message)
-      } finally {
-        setIsLoading(false)
+      } catch (err: any) {
+        setError(err.message)
       }
     }
+
     fetchNotes()
   }, [])
-  return { notes, isLoading, error }
+
+  return { notes, error }
 }

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Button from '../molecules/button'
 
 export default function AddSection() {
-  const { createNote, isLoading, error } = useCreateNote()
+  const { createNote, error } = useCreateNote()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
@@ -17,8 +17,8 @@ export default function AddSection() {
   }
 
   return (
-    <div className="flex justify-center">
-      <form onSubmit={handleSubmit} className="flex flex-col">
+    <div className="flex w-full justify-center">
+      <form onSubmit={handleSubmit} className="flex w-full flex-col">
         <input
           type="text"
           placeholder="Title"
