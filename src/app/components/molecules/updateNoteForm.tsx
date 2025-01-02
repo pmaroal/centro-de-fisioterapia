@@ -33,7 +33,7 @@ const UpdateNoteForm: React.FC<UpdateNoteFormProps> = ({ onUpdate }) => {
   }
 
   return (
-    <div className="rounded bg-gray-100 p-4 shadow">
+    <div className="rounded bg-indigo-900 p-4 shadow">
       <h2 className="mb-4 text-lg font-bold">Update Note</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
@@ -45,7 +45,7 @@ const UpdateNoteForm: React.FC<UpdateNoteFormProps> = ({ onUpdate }) => {
             id="id"
             value={id}
             onChange={(e) => setId(e.target.value)}
-            className="w-full rounded border p-2"
+            className="w-full rounded border p-2 text-black"
           />
         </div>
         <div>
@@ -57,7 +57,7 @@ const UpdateNoteForm: React.FC<UpdateNoteFormProps> = ({ onUpdate }) => {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full rounded border p-2"
+            className="w-full rounded border p-2 text-black"
           />
         </div>
         <div>
@@ -68,7 +68,7 @@ const UpdateNoteForm: React.FC<UpdateNoteFormProps> = ({ onUpdate }) => {
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="w-full rounded border p-2"
+            className="w-full rounded border p-2 text-black"
             rows={5}
           />
         </div>
