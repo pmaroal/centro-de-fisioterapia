@@ -1,11 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 
-interface UpdateNoteFormProps {
-  onUpdate: (id: number, fields: { title?: string; content?: string }) => void
-}
-
-const UpdateNoteForm: React.FC<UpdateNoteFormProps> = ({ onUpdate }) => {
+export default function UpdateNoteForm() {
   const [id, setId] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [content, setContent] = useState<string>('')
@@ -24,8 +20,6 @@ const UpdateNoteForm: React.FC<UpdateNoteFormProps> = ({ onUpdate }) => {
     if (title.trim()) updatedFields.title = title.trim()
     if (content.trim()) updatedFields.content = content.trim()
 
-    onUpdate(noteId, updatedFields)
-
     // Limpiar el formulario después de enviar
     setId('')
     setTitle('')
@@ -33,8 +27,8 @@ const UpdateNoteForm: React.FC<UpdateNoteFormProps> = ({ onUpdate }) => {
   }
 
   return (
-    <div className="rounded bg-indigo-900 p-4 shadow">
-      <h2 className="mb-4 text-lg font-bold">Update Note</h2>
+    <div className="fixed right-0 top-12 h-full w-1/3 max-w-96 rounded p-4">
+      <h2 className="ml mb-4 text-lg font-bold">Update Note</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
           <label htmlFor="id" className="block font-medium">
@@ -82,5 +76,3 @@ const UpdateNoteForm: React.FC<UpdateNoteFormProps> = ({ onUpdate }) => {
     </div>
   )
 }
-
-export default UpdateNoteForm

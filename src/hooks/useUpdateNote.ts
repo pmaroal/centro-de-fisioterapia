@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react'
 
 export const useUpdateNote = () => {
@@ -14,7 +12,7 @@ export const useUpdateNote = () => {
     setError(null)
 
     try {
-      const response = await fetch(`/api/notes/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notes`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
