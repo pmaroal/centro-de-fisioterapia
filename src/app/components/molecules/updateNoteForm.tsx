@@ -1,12 +1,14 @@
 'use client'
+import { useUpdateNote } from '@/hooks/useUpdateNote'
 import React, { useState } from 'react'
 
 export default function UpdateNoteForm() {
   const [id, setId] = useState<string>('')
   const [title, setTitle] = useState<string>('')
   const [content, setContent] = useState<string>('')
+  const { updateNote, isLoading, error } = useUpdateNote()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!id.trim()) {
@@ -19,6 +21,13 @@ export default function UpdateNoteForm() {
 
     if (title.trim()) updatedFields.title = title.trim()
     if (content.trim()) updatedFields.content = content.trim()
+
+    try {
+      await updateNote(noteId, updatedFields)
+      alert('Note updated successfully')
+    } catch (err) {
+      console.error('Failed to update note:', err)
+    }
 
     // Limpiar el formulario después de enviar
     setId('')
@@ -40,6 +49,7 @@ export default function UpdateNoteForm() {
             value={id}
             onChange={(e) => setId(e.target.value)}
             className="w-full rounded border p-2 text-black"
+            disabled={isLoading}
           />
         </div>
         <div>
@@ -52,6 +62,7 @@ export default function UpdateNoteForm() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full rounded border p-2 text-black"
+            disabled={isLoading}
           />
         </div>
         <div>
@@ -64,15 +75,18 @@ export default function UpdateNoteForm() {
             onChange={(e) => setContent(e.target.value)}
             className="w-full rounded border p-2 text-black"
             rows={5}
+            disabled={isLoading}
           />
         </div>
         <button
           type="submit"
           className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+          disabled={isLoading}
         >
-          Update Note
+          {isLoading ? 'Updating...' : 'Update Note'}
         </button>
       </form>
+      {error && <p className="mt-4 text-red-500">Error: {error}</p>}
     </div>
   )
 }
