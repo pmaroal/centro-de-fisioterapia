@@ -9,12 +9,11 @@ export default function HomePage() {
     <div className="flex h-screen">
       {/* Listado de Notas */}
       <div className="flex-1 overflow-y-auto p-4">
-        <h1 className="mb-4 text-2xl font-bold">Notes</h1>
+        <h1 className="mb-4 text-center text-2xl font-bold">Notes 🗒️</h1>
         <AddSection />
         <Notas />
       </div>
 
-      {/* Formulario de Actualización */}
       <UpdateNoteForm />
     </div>
   )
