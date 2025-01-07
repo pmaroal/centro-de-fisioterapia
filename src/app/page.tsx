@@ -1,6 +1,7 @@
 import Notas from './components/organisms/notes'
 import UpdateNoteForm from './components/molecules/updateNoteForm'
 import AddSection from './components/organisms/addSection'
+import DeleteNoteForm from './components/molecules/deleteNoteForm'
 
 export default function HomePage() {
   // Cargar notas desde la base de datos al montar el componente
@@ -13,6 +14,7 @@ export default function HomePage() {
         <AddSection />
         <Notas />
       </div>
+      <DeleteNoteForm />
 
       <UpdateNoteForm />
     </div>
