@@ -27,7 +27,7 @@ export default function DeleteNoteForm() {
   }
 
   return (
-    <div className="fixed left-0 top-12 h-full w-1/3 max-w-96 bg-gray-100 p-4">
+    <div className="fixed left-0 top-12 h-full w-1/3 max-w-96 p-4">
       <h2 className="mb-4 text-lg font-bold">Delete Note</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
