@@ -2,28 +2,23 @@
 import { useDeleteNote } from '@/hooks/useDeleteNote'
 import React, { useState } from 'react'
 
-export default function DeleteNoteForm() {
-  const [id, setId] = useState<string>('')
-  const { deleteNote, isLoading, error } = useDeleteNote()
+interface DeleteNoteFormProps {
+  deleteNote: (id: number) => void
+}
 
-  const handleSubmit = async (e: React.FormEvent) => {
+export default function DeleteNoteForm({ deleteNote }: DeleteNoteFormProps) {
+  const { deleteNote: deleteAPI, isLoading, error } = useDeleteNote()
+  const [id, setId] = useState('')
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-
-    if (!id.trim()) {
-      alert('Please provide the note ID to delete.')
-      return
-    }
-
     const noteId = parseInt(id.trim(), 10)
-
-    try {
-      await deleteNote(noteId)
+    const isDeleted = await deleteAPI(noteId)
+    if (isDeleted) {
+      deleteNote(noteId) // Actualizar el estado en HomePage
+      setId('')
       alert(`Note with ID ${noteId} has been deleted.`)
-    } catch (err) {
-      alert(`Failed to delete note: ${error?.message}`)
     }
-
-    setId('') // Limpiar el input después de enviar
   }
 
   return (

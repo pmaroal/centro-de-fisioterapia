@@ -4,10 +4,11 @@ import UpdateNoteForm from './components/molecules/updateNoteForm'
 import AddSection from './components/organisms/addSection'
 import DeleteNoteForm from './components/molecules/deleteNoteForm'
 import { useEffect, useState } from 'react'
+import { Note } from '@/types/note'
 
 export default function HomePage() {
-  const [notes, setNotes] = useState([]) // Estado para las notas
-  const [isLoading, setIsLoading] = useState(true)
+  const [notes, setNotes] = useState<Note[]>([]) // Especificar que es un array de notas
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   // Función para cargar las notas desde la API
   const fetchNotes = async () => {
@@ -23,22 +24,31 @@ export default function HomePage() {
       setIsLoading(false)
     }
   }
+  // Funciones para actualizar el estado
+  const addNote = (newNote: Note) => setNotes((prev) => [...prev, newNote])
+  const updateNote = (updatedNote: Note) =>
+    setNotes((prev) =>
+      prev.map((note) => (note.id === updatedNote.id ? updatedNote : note)),
+    )
+  const deleteNote = (id: number) =>
+    setNotes((prev) => prev.filter((note) => note.id !== id))
 
   // Cargar las notas al montar el componente
   useEffect(() => {
     fetchNotes()
   }, [])
+
   return (
     <div className="scrollbar-hidden flex h-screen overflow-y-scroll">
       {/* Listado de Notas */}
       <div className="flex-1 overflow-y-auto p-4">
         <h1 className="mb-4 text-center text-2xl font-bold">Notes 🗒️</h1>
-        <AddSection />
+        <AddSection addNote={addNote} />
         <Notas />
       </div>
-      <DeleteNoteForm />
+      <DeleteNoteForm deleteNote={deleteNote} />
 
-      <UpdateNoteForm />
+      <UpdateNoteForm updateNote={updateNote} />
     </div>
   )
 }
