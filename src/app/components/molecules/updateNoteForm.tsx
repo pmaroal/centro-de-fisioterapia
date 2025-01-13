@@ -1,38 +1,40 @@
 'use client'
 import { useUpdateNote } from '@/hooks/useUpdateNote'
-import { Note } from '@/types/note'
 import React, { useState } from 'react'
 
-interface UpdateNoteFormProps {
-  updateNote: (note: Note) => void
-}
-
-export default function UpdateNoteForm({ updateNote }: UpdateNoteFormProps) {
-  const { updateNote: updateAPI, isLoading, error } = useUpdateNote()
-  const [id, setId] = useState('')
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
+export default function UpdateNoteForm() {
+  const [id, setId] = useState<string>('')
+  const [title, setTitle] = useState<string>('')
+  const [content, setContent] = useState<string>('')
+  const { updateNote, isLoading, error } = useUpdateNote()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
     if (!id.trim()) {
       alert('Please provide the note ID to update.')
       return
     }
+
     const noteId = parseInt(id.trim())
-    const updatedFields = {
-      ...(title && { title }),
-      ...(content && { content }),
-    }
-    const updatedNote = await updateAPI(noteId, updatedFields)
-    if (updatedNote) {
-      updateNote(updatedNote) // Actualizar el estado en HomePage
-      setId('')
-      setTitle('')
-      setContent('')
+    const updatedFields: { title?: string; content?: string } = {}
+
+    if (title.trim()) updatedFields.title = title.trim()
+    if (content.trim()) updatedFields.content = content.trim()
+
+    try {
+      await updateNote(noteId, updatedFields)
       alert('Note updated successfully')
+    } catch (err) {
+      console.error('Failed to update note:', err)
     }
+
+    // Limpiar el formulario después de enviar
+    setId('')
+    setTitle('')
+    setContent('')
   }
+
   return (
     <div className="fixed right-0 top-12 h-full w-1/3 max-w-96 rounded p-4">
       <h2 className="ml mb-4 text-lg font-bold">Update Note</h2>

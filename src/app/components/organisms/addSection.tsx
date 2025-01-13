@@ -2,26 +2,18 @@
 import { useCreateNote } from '@/hooks/useCreateNote'
 import { useState } from 'react'
 import Button from '../molecules/button'
-import { Note } from '@/types/note'
 
-interface AddSectionProps {
-  addNote: (note: Note) => void
-}
-
-export default function AddSection({ addNote }: AddSectionProps) {
+export default function AddSection() {
   const { createNote, error } = useCreateNote()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const newNote = await createNote({ title, content })
-    if (newNote) {
-      addNote(newNote)
-      setTitle('')
-      setContent('')
-      alert('Nota creada exitosamente')
-    }
+    await createNote({ title, content })
+    setTitle('')
+    setContent('')
+    alert('Nota creada exitosamente')
   }
 
   return (
